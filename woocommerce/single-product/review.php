@@ -25,7 +25,7 @@ $rating = esc_attr( get_comment_meta( $GLOBALS['comment']->comment_ID, 'rating',
 				<?php comment_author(); ?>
 				<?php
 				if ( get_option('woocommerce_review_rating_verification_label') == 'yes' ) {
-					if ( woocommerce_customer_bought_product( $GLOBALS['comment']->comment_author_email, $GLOBALS['comment']->user_id, $post->ID ) ) {
+					if ( wc_customer_bought_product( $GLOBALS['comment']->comment_author_email, $GLOBALS['comment']->user_id, $post->ID ) ) {
 						echo '<em class="verified">(' . __( 'verified owner', 'woocommerce' ) . ')</em> ';
 					}
 				}

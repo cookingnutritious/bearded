@@ -537,6 +537,9 @@ function hybrid_document_title() {
 		/* If viewing a post type archive. */
 		elseif ( is_post_type_archive() ) {
 			$doctitle = post_type_archive_title( '', false );
+			if ($doctitle == 'Products') {
+				$doctitle = get_bloginfo( 'name' ) . $separator . 'Menu';
+			}
 		}
 
 		/* If viewing an author/user archive. */

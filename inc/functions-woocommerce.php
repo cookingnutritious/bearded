@@ -26,7 +26,7 @@ function bearded_woocommerce_setup() {
 
     remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
 
-    remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
+    #remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
 
     remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
 
@@ -38,7 +38,7 @@ function bearded_woocommerce_setup() {
 
     add_action( "{$prefix}_before_shop_loop_item_title", 'bearded_open_wrap_product_button', 20 );
 
-    add_action( "{$prefix}_before_shop_loop_item_title", 'woocommerce_template_loop_add_to_cart', 20 );
+    #add_action( "{$prefix}_before_shop_loop_item_title", 'woocommerce_template_loop_add_to_cart', 20 );
 
     add_action( "{$prefix}_before_shop_loop_item_title", 'bearded_wishlist_button', 20 );
 
@@ -104,56 +104,32 @@ function bearded_woocommerce_nav() {
     if ( function_exists( 'is_woocommerce' ) ) : ?>
     <nav class="shop-nav">
         <ul class="account-menu">
-            <?php if ( is_user_logged_in() ) { ?> 
-            <li class="my-account <?php echo ( !empty($post) && $post->ID == wc_get_page_id('myaccount') && !array_key_exists( get_option( 'woocommerce_myaccount_edit_account_endpoint'), $wp->query_vars) ) ? 'active' : ''; ?>">
-                <a class="tiptip icon-user" title="<?php _e('My Account','bearded'); ?>" href="<?php echo get_permalink( wc_get_page_id( 'myaccount' ) ); ?>">
-                    <span class="link-title"><?php _e('My Account','bearded'); ?></span>
-                </a>
-            </li>
-            <li class="edit-account <?php echo ( !empty($post) && $post->ID == wc_get_page_id('myaccount') && array_key_exists( get_option( 'woocommerce_myaccount_edit_account_endpoint'), $wp->query_vars) ) ? 'active' : '';?>">
-                <a class="tiptip icon-pencil" title="<?php _e('Edit Account','bearded'); ?>" href="<?php echo wc_customer_edit_account_url(); ?>">
-                    <span class="link-title"><?php _e('Edit Account','bearded'); ?></span>
-                </a>
-            </li>
-            <li class="visit-shop <?php echo ( get_query_var( 'post_type' ) == 'product' ) ? 'active' : '';?>">
-                <a class="tiptip icon-home" title="<?php _e('Visit Shop','bearded'); ?>" href="<?php echo get_permalink( wc_get_page_id( 'shop' ) ); ?>">
-                    <span class="link-title"><?php _e('Visit Shop','bearded'); ?></span>
-                </a>
-            </li>
-            <?php if ($yith_wcwl) { ?>
-            <li class="wishlist <?php echo ( !empty($post) && $post->ID == get_option( 'yith_wcwl_wishlist_page_id' ) ) ? 'active' : '';?>">
-                <a class="tiptip icon-magic" title="<?php _e('View Wishlist','bearded'); ?>" href="<?php echo $yith_wcwl->get_wishlist_url(); ?>">
-                    <span class="link-title"><?php _e('View Wishlist','bearded'); ?></span>
+            <?php if ( is_user_logged_in() ) { ?>
+            <li class="my-account ">
+                <a class="tiptip icon-user" title="Admin" href="<?php echo admin_url();; ?>">
+                    <span class="link-title">Admin</span>
                 </a>
             </li>
             <?php } ?>
-            <li class="logout">
-                <a class="tiptip icon-signout" title="<?php _e('Logout','bearded'); ?>" href="<?php echo wp_logout_url(($_SERVER['REQUEST_URI'])); ?>">
-                    <span class="link-title"><?php _e('Logout','bearded'); ?></span>
+            <li class="visit-shop">
+                <a class="tiptip icon-home" title="Menu" href="<?php echo home_url( '/' ); ?>">
+                    <span class="link-title">Menu</span>
                 </a>
             </li>
-            <?php } else { ?>
-            <li class="visit-shop <?php echo ( get_query_var( 'post_type' ) == 'product' ) ? 'active' : '';?>">
-                <a class="tiptip icon-home" title="<?php _e('Visit Shop','bearded'); ?>" href="<?php echo get_permalink( wc_get_page_id( 'shop' ) ); ?>">
-                    <span class="link-title"><?php _e('Visit Shop','bearded'); ?></span>
+            <li class="visit-shop">
+                <a class="tiptip icon-glass" title="Drinks &amp; Smoothies" href="<?php echo home_url( '/product-category/drinks-smoothies/' ); ?>">
+                    <span class="link-title">Drinks &amp; Smoothies</span>
                 </a>
             </li>
-            <li class="login <?php echo ( !empty($post) && $post->ID == wc_get_page_id('myaccount') && !array_key_exists( get_option( 'woocommerce_myaccount_lost_password_endpoint' ) , $wp->query_vars) ) ? 'active' : '';?>">
-                <a class="tiptip icon-signin" title="<?php _e('Login','bearded'); ?>" href="<?php echo get_permalink( wc_get_page_id( 'myaccount' ) ); ?>">
-                    <span class="link-title"><?php _e('Login','bearded'); ?></span>
+            <li class="visit-shop">
+                <a class="tiptip icon-coffee" title="Coffee &amp; Tea" href="<?php echo home_url( '/product-category/coffee-tea/' ); ?>">
+                    <span class="link-title">Coffee &amp; Tea</span>
                 </a>
             </li>
-            <li class="lost-password <?php echo ( !empty($post) && $post->ID == wc_get_page_id('myaccount') && array_key_exists( get_option( 'woocommerce_myaccount_lost_password_endpoint' ), $wp->query_vars) ) ? 'active' : '';?>">
-                <a class="tiptip icon-key" title="<?php _e('Lost Password','bearded'); ?>" href="<?php echo wc_lostpassword_url(); ?>">
-                    <span class="link-title"><?php _e('Lost Password','bearded'); ?></span>
+            <li class="visit-shop">
+                <a class="tiptip icon-food" title="Food" href="<?php echo home_url( '/product-category/food/' ); ?>">
+                    <span class="link-title">Food</span>
                 </a>
-            </li>
-            <?php } ?>
-            
-        </ul>
-        <ul class="cart">
-            <li class="cart-container">
-                <?php bearded_cart_widget(); ?>
             </li>
         </ul>
     </nav>
